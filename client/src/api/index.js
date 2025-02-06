@@ -2,7 +2,10 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "http://localhost:8080/api/",
+    //development
+    // baseURL: "http://localhost:8080/api/",
+    //production
+    baseURL:"https://ai-image-generation-44ys.onrender.com/api"
 });
 
 export const GetPosts = async () => await API.get("/post/");
