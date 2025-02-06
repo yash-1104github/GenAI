@@ -43,3 +43,6 @@ build/
 # IDE-specific files
 .vscode/
 .idea/
+
+client/.env*
+server/.env

@@ -1,9 +1,9 @@
+
 import * as dotenv from "dotenv";
 import { createError } from "../error.js";
 import Replicate from "replicate";
 
 dotenv.config();
-
 
 const replicate = new Replicate({
     auth: process.env.REPLICATE_API_TOKEN,
@@ -13,11 +13,6 @@ const replicate = new Replicate({
 export const generateImage = async (req, res, next) => {
     try {
         const { prompt } = req.body;
-
-        const replicateHeaders = {
-            'Content-Type': 'application/json',
-            'User-Agent': 'YourApplication/1.0'
-        };
 
         const input = {
             prompt,
@@ -29,25 +24,18 @@ export const generateImage = async (req, res, next) => {
             output_quality: 80,
         };
 
-        const response = await replicate.run("black-forest-labs/flux-schnell", { input, headers: replicateHeaders });
+        const response = await replicate.run("black-forest-labs/flux-schnell", { input, });
+        if (!response || response.length === 0) {
+            return res.status(400).json({ error: "No image generated" });
+        }
 
         const generatedImageURL = response[0];
-
         //console.log(generateImage);
-
         if (!generatedImageURL) {
             return res.status(400).json({ error: "No image generated" });  
         }
 
-        const fetchHeaders = {
-            'Authorization': `Bearer ${process.env.REPLICATE_API_TOKEN}`,
-            'Accept': 'image/webp',
-            'User-Agent': 'ai-image-generation/0.0.0'
-        };
-
-        const imageResponse = await fetch(generatedImageURL,{
-            headers: fetchHeaders
-        });
+        const imageResponse = await fetch(generatedImageURL);
 
         if (!imageResponse.ok) {
             return res.status(500).json({ error: "Failed to fetch the image" });
@@ -55,9 +43,7 @@ export const generateImage = async (req, res, next) => {
 
         const imageBuffer = await imageResponse.arrayBuffer();
         const generatedImage = Buffer.from(imageBuffer).toString("base64");
-
-
-        res.status(200).json({ photo: generatedImage });
+        return res.status(200).json({ photo: generatedImage });
 
     } catch (error) {
         next(
