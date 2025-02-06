@@ -5,6 +5,7 @@ import Replicate from "replicate";
 
 dotenv.config();
 
+
 const replicate = new Replicate({
     auth: process.env.REPLICATE_API_TOKEN,
 });
@@ -13,6 +14,8 @@ const replicate = new Replicate({
 export const generateImage = async (req, res, next) => {
     try {
         const { prompt } = req.body;
+
+        req.headers['Authorization'] = `Bearer ${process.env.REPLICATE_API_TOKEN}`;
 
         const input = {
             prompt,
@@ -24,7 +27,7 @@ export const generateImage = async (req, res, next) => {
             output_quality: 80,
         };
 
-        const response = await replicate.run("black-forest-labs/flux-schnell", { input, });
+        const response = await replicate.run("black-forest-labs/flux-schnell", { input});
         if (!response || response.length === 0) {
             return res.status(400).json({ error: "No image generated" });
         }
@@ -35,7 +38,12 @@ export const generateImage = async (req, res, next) => {
             return res.status(400).json({ error: "No image generated" });  
         }
 
-        const imageResponse = await fetch(generatedImageURL);
+        const imageResponse = await fetch(generatedImageURL,{
+            headers: {
+                'Authorization': `Bearer ${process.env.REPLICATE_API_TOKEN}`,
+                'X-API-Key': process.env.REPLICATE_API_TOKEN
+            }
+        });
 
         if (!imageResponse.ok) {
             return res.status(500).json({ error: "Failed to fetch the image" });
@@ -43,14 +51,10 @@ export const generateImage = async (req, res, next) => {
 
         const imageBuffer = await imageResponse.arrayBuffer();
         const generatedImage = Buffer.from(imageBuffer).toString("base64");
+
         return res.status(200).json({ photo: generatedImage });
 
     } catch (error) {
-        next(
-            createError(
-                error.status,
-                error?.response?.data?.error.message || error.message
-            )
-        );
+        next(createError(error.status, error?.response?.data?.error.message || error.message));
     }
 };
