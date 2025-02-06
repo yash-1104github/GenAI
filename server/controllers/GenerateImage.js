@@ -14,6 +14,11 @@ export const generateImage = async (req, res, next) => {
     try {
         const { prompt } = req.body;
 
+        const replicateHeaders = {
+            'Content-Type': 'application/json',
+            'User-Agent': 'YourApplication/1.0'
+        };
+
         const input = {
             prompt,
             go_fast: true,
@@ -24,17 +29,25 @@ export const generateImage = async (req, res, next) => {
             output_quality: 80,
         };
 
-        const response = await replicate.run("black-forest-labs/flux-schnell", { input });
+        const response = await replicate.run("black-forest-labs/flux-schnell", { input, headers: replicateHeaders });
 
         const generatedImageURL = response[0];
 
         //console.log(generateImage);
 
         if (!generatedImageURL) {
-            return res.status(400).json({ error: "No image generated" });
+            return res.status(400).json({ error: "No image generated" });  
         }
 
-        const imageResponse = await fetch(generatedImageURL);
+        const fetchHeaders = {
+            'Authorization': `Bearer ${process.env.REPLICATE_API_TOKEN}`,
+            'Accept': 'image/webp',
+            'User-Agent': 'ai-image-generation/0.0.0'
+        };
+
+        const imageResponse = await fetch(generatedImageURL,{
+            headers: fetchHeaders
+        });
 
         if (!imageResponse.ok) {
             return res.status(500).json({ error: "Failed to fetch the image" });
