@@ -15,7 +15,7 @@
   - Simple, intuitive UI for easy navigation and prompt submission.
 
 **Technology Stack**
-- FRONTENT TECH -  HTML, CSS, JAVASCRIPT, REACT, MATERIAL-UI
+- FRONTEND TECH -  HTML, CSS, JAVASCRIPT, REACT, MATERIAL-UI
 - BACKEND TECH -  NODE.JS, EXPRESS.JS
 - DATABASE - MONGODB
 
