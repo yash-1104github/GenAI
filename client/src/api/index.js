@@ -22,6 +22,7 @@ export const GenerateImageFromPrompt = async (data) => {
         const response = await axios.post("https://ai-image-generation-44ys.onrender.com/api/generateImage/", data,{
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${meta.env.VITE_REPLICATE_API_KEY}`,
             }
         }); 
         console.log(data);
