@@ -1,6 +1,6 @@
 //htttp req send to server
 import axios from "axios";
-const apiKey = import.meta.env.VITE_REPLICATE_API_KEY;
+
 
 const API = axios.create({
     //development
@@ -22,7 +22,7 @@ export const GenerateImageFromPrompt = async (data) => {
         const response = await axios.post("https://ai-image-generation-44ys.onrender.com/api/generateImage/", data,{
             headers: {
                 'Content-Type': 'application/json',
-                Authorization': `Bearer ${apiKey}`,
+             
             }
         }); 
         console.log(data);
