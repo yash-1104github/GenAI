@@ -4,11 +4,9 @@ const apiKey = import.meta.env.VITE_REPLICATE_API_KEY;
 
 const API = axios.create({
     //development
-     baseURL: "http://localhost:8080/api/",
+    // baseURL: "http://localhost:8080/api/",
     //production
-    // baseURL:"https://ai-image-generation-44ys.onrender.com/api",  
-    //  proxy: false,
-    // headers: { ...headers },
+     baseURL:"https://ai-image-generation-44ys.onrender.com/api",  
 });
 
 
@@ -21,7 +19,7 @@ export const CreatePost = async (data) => await API.post("/post/", data);
 
 export const GenerateImageFromPrompt = async (data) => {
     try {
-        const response = await axios.post("http://localhost:8080/api/generateImage/", data,{
+        const response = await axios.post("https://ai-image-generation-44ys.onrender.com/api/generateImage/", data,{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${apiKey}`,
