@@ -1,21 +1,12 @@
 //htttp req send to server
-
-
 import axios from "axios";
 
-const headers = {
-    "Authorization": `Token ${import.meta.env.VITE_REPLICATE_API_KEY}`,
-    "Content-Type": "application/json",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-};
 
 const API = axios.create({
     //development
-     baseURL: "http://localhost:8080/api/",
+    // baseURL: "http://localhost:8080/api/",
     //production
-    // baseURL:"https://ai-image-generation-44ys.onrender.com/api",  
-    //  proxy: false,
-    // headers: { ...headers },
+     baseURL:"https://ai-image-generation-44ys.onrender.com/api",  
 });
 
 
@@ -28,7 +19,7 @@ export const CreatePost = async (data) => await API.post("/post/", data);
 
 export const GenerateImageFromPrompt = async (data) => {
     try {
-        const response = await axios.post("http://localhost:8080/api/generateImage/", data,{
+        const response = await axios.post("https://ai-image-generation-44ys.onrender.com/api/generateImage/", data,{
             headers: {
                 'Content-Type': 'application/json',
             }
