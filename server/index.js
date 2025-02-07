@@ -13,6 +13,7 @@ app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, parameterLimit: 10000, limit: '50mb', }));
 
+//http req recieve
 app.use("/api/post", post);
 app.use("/api/generateImage/", generateImageRoute);
 

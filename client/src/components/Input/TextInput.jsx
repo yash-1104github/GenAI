@@ -46,16 +46,8 @@ const Input = styled.input`
 
 `;
 
-const TextInput = ({
-  label,
-  placeholder,
-  name,
-  value,
-  handelChange,
-  textArea,
-  rows,
-  columns,
-}) => {
+const TextInput = ({label, placeholder, name, value, handelChange, textArea, rows, columns}) => {
+  
   return (
     <Container>
       <Label>{label}</Label>

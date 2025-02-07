@@ -15,8 +15,10 @@ cloudinary.config({
 // Get all posts
 export const getAllPosts = async (req, res, next) => {
     try {
-        const posts = await Post.find({});
+        // Server receives and processes the GET request
+        const posts = await Post.find({});// MongoDB query
         return res.status(200).json({ success: true, data: posts });
+        
     } catch (error) {
         return next(
             createError(

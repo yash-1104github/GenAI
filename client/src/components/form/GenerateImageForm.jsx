@@ -82,13 +82,16 @@ const Actions = styled.div`
 const GenerateImageForm = ({ createPostLoading, setcreatePostLoading, generateImageLoading, setGenerateImageLoading, post, setPost }) => {
 
   const navigate = useNavigate();
+
   const [error, setError] = useState("");
 
   const generateImage = async () => {
 
     setGenerateImageLoading(true);
     setError("");
+    //promise 
     await GenerateImageFromPrompt({ prompt: post.prompt })
+    
       .then((res) => {
         setPost({
           ...post,
@@ -133,6 +136,7 @@ const GenerateImageForm = ({ createPostLoading, setcreatePostLoading, generateIm
     )
   }
 
+
   return (
     <>
       <Form>
@@ -142,8 +146,8 @@ const GenerateImageForm = ({ createPostLoading, setcreatePostLoading, generateIm
             Write your prompt according to the image you want to generate!
           </Desc> */}
         </Top>
-        <Body>
 
+        <Body>
             <TextInput
               label="Author"
               placeholder="Enter your name"
@@ -156,7 +160,7 @@ const GenerateImageForm = ({ createPostLoading, setcreatePostLoading, generateIm
             placeholder="Write a detailed prompt about the image"
             name="prompt"
             textArea
-            rows="8"
+            rows="7"
             value={post.prompt}
             handelChange={(e) => setPost({ ...post, prompt: e.target.value })}
           />
@@ -171,9 +175,10 @@ const GenerateImageForm = ({ createPostLoading, setcreatePostLoading, generateIm
               )
             }
           </div>
-          {error && <div style={{ color: "red" }}>{error}</div>}* You can post the
-          AI Generated Image to showcase in the community!
+          {error && <div style={{ color: "red" }}>{error}</div>}
+          * You can post the AI Generated Image to showcase in the community!
         </Body>
+
         <Actions>
           <Button
             text="Generate Image"

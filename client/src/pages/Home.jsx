@@ -7,7 +7,6 @@ import { GetPosts } from "../api";
 
 
 
-
 const Container = styled.div`
   padding: 30px 30px;
   padding-bottom: 200px;
@@ -100,8 +99,8 @@ const Home = () => {
 
   const getPost = async () => {
     setloading(true);
-    await GetPosts()
-      .then((res) => {
+    //promise 
+    await GetPosts().then((res) => {
         setPost(res?.data?.data);
         setFilteredPost(res?.data?.data);
         setloading(false);
@@ -113,11 +112,12 @@ const Home = () => {
 
   // console.log(setPost);
 
+   //only run one time when page render
   useEffect(() => {
     getPost();
   }, []);
-
-
+ 
+//run multiple itmes if we search 
   useEffect(() => {
     if (!search) {
       setFilteredPost(post);
