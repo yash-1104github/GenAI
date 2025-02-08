@@ -1,4 +1,4 @@
-//htttp req send to server
+//http req send to server
 
 import axios from "axios";
 const apiKey = import.meta.env.VITE_REPLICATE_API_KEY;
@@ -7,7 +7,7 @@ const API = axios.create({
     //development
     //  baseURL: "http://localhost:3000/api/",
     //production
-     baseURL:"https://ai-image-generation-44ys.onrender.com/api",  
+     baseURL: "https://ai-image-generation-44ys.onrender.com/api",  
 });
 
 
@@ -16,7 +16,6 @@ export const GetPosts = async () => await API.get("/post/");
 
 export const CreatePost = async (data) => await API.post("/post/", data);
 
-<<<<<<< HEAD
 // export const GenerateImageFromPrompt = async (data) => await API.post("/generateImage/", data); 
 
 export const GenerateImageFromPrompt = async (data) => {
@@ -35,8 +34,7 @@ export const GenerateImageFromPrompt = async (data) => {
         throw error;
     }
 };
-=======
-export const GenerateImageFromPrompt = async (data) => await API.post("/generateImage/", data); 
+
 
 // export const GenerateImageFromPrompt = async (data) => {
 //     try {
@@ -54,8 +52,6 @@ export const GenerateImageFromPrompt = async (data) => await API.post("/generate
 //         throw error;
 //     }
 // };
->>>>>>> 2ffb919d12a9e839f3911582ce02d25fe915ddb6
-
 
 
 
