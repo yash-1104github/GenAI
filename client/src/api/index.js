@@ -15,24 +15,24 @@ export const GetPosts = async () => await API.get("/post/");
 
 export const CreatePost = async (data) => await API.post("/post/", data);
 
-//export const GenerateImageFromPrompt = async (data) => await API.post("/generateImage/", data); 
+export const GenerateImageFromPrompt = async (data) => await API.post("/generateImage/", data); 
 
-export const GenerateImageFromPrompt = async (data) => {
-    try {
-        const response = await axios.post("https://ai-image-generation-44ys.onrender.com/api/generateImage/", data,{
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`,
-            }
+// export const GenerateImageFromPrompt = async (data) => {
+//     try {
+//         const response = await axios.post("https://ai-image-generation-44ys.onrender.com/api/generateImage/", data,{
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Authorization': `Bearer ${apiKey}`,
+//             }
 
-        }); 
-        console.log(data);
-        return response;
-    } catch (error) {
-        console.error("Error generating image:", error?.response?.data || error.message);
-        throw error;
-    }
-};
+//         }); 
+//         console.log(data);
+//         return response;
+//     } catch (error) {
+//         console.error("Error generating image:", error?.response?.data || error.message);
+//         throw error;
+//     }
+// };
 
 
 
