@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true, parameterLimit: 10000, limit: '50mb
 
 //http req recieve
 app.use("/api/post", post);
-app.use("/api/generateImage/", generateImageRoute);
+app.use("/api/generateImage", generateImageRoute);
 
 app.use((err, req, res, next) => {
     const status = err.status || 500;
