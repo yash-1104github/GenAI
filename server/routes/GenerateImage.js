@@ -1,11 +1,10 @@
 
 import express from "express";
-import { generateImage } from "../controllers/GenerateImage.js";
-
 const router = express.Router();
 
-router.post("/",  generateImage);
+import { generateImage, validateRequest } from "../controllers/GenerateImage.js";
+
+  
+router.post("/", validateRequest ,  generateImage);
 
 export default router;
-
-

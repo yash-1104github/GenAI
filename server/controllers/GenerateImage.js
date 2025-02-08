@@ -5,14 +5,21 @@ import Replicate from "replicate";
 dotenv.config();
 
 const replicate = new Replicate({
-    auth: process.env.REPLICATE_API_TOKEN ,
+    headers: process.env.REPLICATE_API_TOKEN,
 });
 
+//console.log(process.env.REPLICATE_API_TOKEN);
+
+export const validateRequest = (req, res, next) => {
+    if (!req.headers.authorization) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+    next();
+};
 
 export const generateImage = async (req, res, next) => {
     try {
         const { prompt } = req.body;
-
         const input = {
             prompt,
             go_fast: true,
@@ -22,25 +29,27 @@ export const generateImage = async (req, res, next) => {
             output_format: "webp",
             output_quality: 80,
         };
+       
+       // console.log(input); 
 
         const response = await replicate.run("black-forest-labs/flux-schnell", {input});
-        console.log(response);
+        //console.log(response);
 
         const generatedImageURL = response[0];
-        console.log(generatedImageURL);
+       // console.log(generatedImageURL);
 
         const imageResponse = await fetch(generatedImageURL);
-        console.log(imageResponse);
+      //  console.log(imageResponse);
         
         if (!imageResponse.ok) {
             return res.status(500).json({ error: "Failed to fetch the image" });
         }
 
         const imageBuffer = await imageResponse.arrayBuffer();
-        console.log(imageBuffer);
+       // console.log(imageBuffer);
 
         const generatedImage = Buffer.from(imageBuffer).toString("base64");
-        console.log(generateImage);
+       // console.log(generateImage);
 
         return res.status(200).json({ photo: generatedImage });
 

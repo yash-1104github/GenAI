@@ -6,6 +6,7 @@ const PostSchema = new mongoose.Schema({
     photo: { type: String, required: true },
 });
 
+// Compile model from schema
 const Post = mongoose.model("Post", PostSchema);
 
 export default Post;

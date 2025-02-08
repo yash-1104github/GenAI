@@ -34,6 +34,7 @@ export const createPost = async (req, res, next) => {
     try {
         const { name, prompt, photo } = req.body;
         const photoUrl = await cloudinary.uploader.upload(photo);
+         //data saves on mongodb
         const newPost = await Post.create({
             name,
             prompt,
