@@ -14,6 +14,7 @@ export const validateRequest = (req, res, next) => {
     if (!req.headers.authorization) {
         return res.status(401).json({ error: 'Unauthorized' });
     }
+    next();
 };
 
 export const generateImage = async (req, res, next) => {
