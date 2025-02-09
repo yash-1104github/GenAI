@@ -7,7 +7,7 @@ const API = axios.create({
     //development
     //  baseURL: "http://localhost:3000/api/",
     //production
-     baseURL: "https://ai-image-generation-44ys.onrender.com/api",  
+     baseURL: "https://ai-image-generation-quna.onrender.com/api",  
 });
 
 
@@ -20,7 +20,7 @@ export const CreatePost = async (data) => await API.post("/post/", data);
 
 export const GenerateImageFromPrompt = async (data) => {
     try {
-        const response = await axios.post("https://ai-image-generation-44ys.onrender.com/api/generateImage/", data,{
+        const response = await axios.post("https://ai-image-generation-quna.onrender.com/api/generateImage/", data,{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${apiKey}`,
