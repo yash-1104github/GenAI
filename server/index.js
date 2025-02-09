@@ -11,14 +11,20 @@ const app = express();
 //middleware
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
+<<<<<<< HEAD
 app.use(express.urlencoded({ extended: true }));
 
+=======
+>>>>>>> 0a2232526dbc6e3ae3ed546a522d1843bf544600
 app.use(express.urlencoded({ extended: true, parameterLimit: 10000, limit: '50mb', }));
 
 //http req recieve
-app.use("/api/post", post);
+app.use("/api/post", postRoute);
 app.use("/api/generateImage", generateImageRoute);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0a2232526dbc6e3ae3ed546a522d1843bf544600
 
 //error handle middleware
 app.use((err, req, res, next) => {

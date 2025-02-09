@@ -1,4 +1,4 @@
-//htttp req send to server
+//http req send to server
 
 import axios from "axios"; 
 const apiKey = import.meta.VITE_HUGGING_FACE_API_KEY;
@@ -7,7 +7,11 @@ const API = axios.create({
     //development
     //  baseURL: "http://localhost:8080/api",
     //production
+<<<<<<< HEAD
     baseURL:"https://ai-image-generation-quna.onrender.com/api",  
+=======
+     baseURL: "https://ai-image-generation-quna.onrender.com/api",  
+>>>>>>> 0a2232526dbc6e3ae3ed546a522d1843bf544600
 });
 
 
@@ -16,7 +20,10 @@ export const GetPosts = async () => await API.get("/post/");
 
 export const CreatePost = async (data) => await API.post("/post/", data);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0a2232526dbc6e3ae3ed546a522d1843bf544600
 // export const GenerateImageFromPrompt = async (data) => await API.post("/generateImage/", data); 
 
 export const GenerateImageFromPrompt = async (data) => {
@@ -36,7 +43,10 @@ export const GenerateImageFromPrompt = async (data) => {
     }
 };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0a2232526dbc6e3ae3ed546a522d1843bf544600
 
 // export const GenerateImageFromPrompt = async (data) => {
 //     try {
@@ -54,7 +64,10 @@ export const GenerateImageFromPrompt = async (data) => {
 //         throw error;
 //     }
 // };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0a2232526dbc6e3ae3ed546a522d1843bf544600
 
 
 
