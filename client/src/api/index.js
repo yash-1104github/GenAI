@@ -1,13 +1,13 @@
 //htttp req send to server
 
-import axios from "axios";
-const apiKey = import.meta.env.VITE_REPLICATE_API_KEY;
+import axios from "axios"; 
+const apiKey = import.meta.VITE_HUGGING_FACE_API_KEY;
 
 const API = axios.create({
     //development
-    //  baseURL: "http://localhost:3000/api/",
+    //  baseURL: "http://localhost:8080/api",
     //production
-     baseURL:"https://ai-image-generation-44ys.onrender.com/api",  
+    baseURL:"https://ai-image-generation-quna.onrender.com/api",  
 });
 
 
@@ -16,12 +16,12 @@ export const GetPosts = async () => await API.get("/post/");
 
 export const CreatePost = async (data) => await API.post("/post/", data);
 
-<<<<<<< HEAD
+
 // export const GenerateImageFromPrompt = async (data) => await API.post("/generateImage/", data); 
 
 export const GenerateImageFromPrompt = async (data) => {
     try {
-        const response = await axios.post("https://ai-image-generation-44ys.onrender.com/api/generateImage/", data,{
+        const response = await axios.post("https://ai-image-generation-quna.onrender.com/api/generateImage/", data,{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${apiKey}`,
@@ -35,8 +35,8 @@ export const GenerateImageFromPrompt = async (data) => {
         throw error;
     }
 };
-=======
-export const GenerateImageFromPrompt = async (data) => await API.post("/generateImage/", data); 
+
+
 
 // export const GenerateImageFromPrompt = async (data) => {
 //     try {
@@ -54,7 +54,6 @@ export const GenerateImageFromPrompt = async (data) => await API.post("/generate
 //         throw error;
 //     }
 // };
->>>>>>> 2ffb919d12a9e839f3911582ce02d25fe915ddb6
 
 
 

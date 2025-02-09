@@ -1,14 +1,12 @@
 import * as dotenv from "dotenv";
 import { createError } from "../error.js";
-import Replicate from "replicate";
+import { HfInference } from "@huggingface/inference";
 
 dotenv.config();
 
-const replicate = new Replicate({
-    headers: process.env.REPLICATE_API_TOKEN,
-});
 
-//console.log(process.env.REPLICATE_API_TOKEN);
+const client = new HfInference('GsdlMlQNLfFZRsncMiHgNbVgMtKahtVRuo');
+
 
 export const validateRequest = (req, res, next) => {
     if (!req.headers.authorization) {
@@ -32,7 +30,11 @@ export const generateImage = async (req, res, next) => {
        
        // console.log(input); 
 
-        const response = await replicate.run("black-forest-labs/flux-schnell", {input});
+        const response = await client.textToImage({
+            model: "stabilityai/stable-diffusion-3.5-large",
+            inputs: {input},
+            provider: "hf-inference",
+        });
         //console.log(response);
 
         const generatedImageURL = response[0];
