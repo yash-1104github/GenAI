@@ -15,9 +15,9 @@
   - Simple, intuitive UI for easy navigation and prompt submission.
 
 **Technology Stack**
-- FRONTEND TECH -  HTML, CSS, JAVASCRIPT, REACT, MATERIAL-UI
-- BACKEND TECH -  NODE.JS, EXPRESS.JS
-- DATABASE - MONGODB
+- FRONTEND TECH -  HTML, TAILWINDCSS, JAVASCRIPT, REACT,  MATERIAL-UI
+- BACKEND TECH -  NODE.JS, EXPRESS.JS , RESTful-API
+- DATABASE - MONGODB , CLOUDINARY
 
 **How It Works**
 - User Input: Users enter a text prompt describing the desired image (e.g., “a sunset over the ocean with mountains in the background”).

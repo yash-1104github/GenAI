@@ -1,79 +1,55 @@
 import * as dotenv from "dotenv";
 import { createError } from "../error.js";
-import { HfInference } from "@huggingface/inference";
+import FormData from "form-data";
+import axios from "axios";
 
 dotenv.config();
 
 
-const client = new HfInference('GsdlMlQNLfFZRsncMiHgNbVgMtKahtVRuo');
-
-
 export const validateRequest = (req, res, next) => {
-    if (!req.headers.authorization) {
-        return res.status(401).json({ error: 'Unauthorized' });
+    
+    const token = req.headers['Authorization'] || req.headers['authorization'];
+
+    if (!token) {
+        return res.status(401).json({ error: 'Unauthorized' , message: "Authorization header is missing", success: false });
     }
     next();
 };
 
-export const generateImage = async (req, res, next) => {
+export const generateImage = async(req, res, next) => {
     try {
         const { prompt } = req.body;
-        const input = {
-            prompt,
-            go_fast: true,
-            megapixels: "1",
-            num_outputs: 1,
-            aspect_ratio: "1:1",
-            output_format: "webp",
-            output_quality: 80,
-        };
-       
-       // console.log(input); 
-
-        const response = await client.textToImage({
-            model: "stabilityai/stable-diffusion-3.5-large",
-            inputs: {input},
-            provider: "hf-inference",
-        });
-        //console.log(response);
-
-        const generatedImageURL = response[0];
-       // console.log(generatedImageURL);
-
-        const imageResponse = await fetch(generatedImageURL);
-      //  console.log(imageResponse);
+        // console.log(prompt);
         
-        if (!imageResponse.ok) {
-            return res.status(500).json({ error: "Failed to fetch the image" });
+        if (!prompt) {
+            return res.status(400).json({ error: "Prompt is required", success: false });
         }
 
-        const imageBuffer = await imageResponse.arrayBuffer();
-       // console.log(imageBuffer);
+        const formData = new FormData()
+        formData.append('prompt', prompt)
 
-        const generatedImage = Buffer.from(imageBuffer).toString("base64");
-       // console.log(generateImage);
+       const {data} =  await axios.post('https://clipdrop-api.co/text-to-image/v1', formData, {
+            headers: {
+                'x-api-key': process.env.CLIPDROP_API_KEY,
+               
+            },
+            responseType: 'arraybuffer',
+        });
 
-        return res.status(200).json({ photo: generatedImage });
+        // console.log(data); 
+
+        const base64Image = Buffer.from(data, 'binary').toString('base64');
+        // console.log(base64Image);
+        const resultImage = `data:Image/png;base64,${base64Image}`
+        // console.log(resultImage);
+
+        res.json({ success: true, message: "Image generated successfully", photo: resultImage });
 
     } catch (error) {
+        // console.error("Error generating image:", error);
+        res.json({ error: "Failed to generate image" , success: false, prompt: req.body.prompt
+        });
         next(createError(error.status, error?.response?.data?.error.message || error.message));
     }
 };
 
-
-
-
-
-
-
-
-
-
-
-        //console.log(generateImage);
-        // if (!response || response.length === 0) {
-        //     return res.status(400).json({ error: "No image generated" });
-        // }
-        // if (!generatedImageURL) {
-        //     return res.status(400).json({ error: "No image generated" });  
-        // }

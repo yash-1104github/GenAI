@@ -1,4 +1,4 @@
-import express from "express";
+ import express from "express";
 import cors from "cors"
 import mongoose from "mongoose"
 import * as dotenv from "dotenv";
@@ -29,12 +29,11 @@ app.use((err, req, res, next) => {
 })
 
 //middleware
-app.use("/api/post", postRoute);
-app.use("/api/generateImage", generateImageRoute);
 
 app.get("/", async (req, res) => {
     res.status(200).json({
-        message: "Hello developers from me",
+        message: "Server is running",
+        success: true,
     });
 });
 
@@ -55,13 +54,10 @@ const connectDB = () => {
 const startServer = async () => {
     try {
         connectDB();
-        app.listen(3000, () => console.log("Server started on port 8080"));
+        app.listen(3000, () => console.log("Server started on port 3000"));
     } catch (error) {
         console.log(error);
     }
 };
 
 startServer();
-
-
-

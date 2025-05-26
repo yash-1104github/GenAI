@@ -12,7 +12,8 @@ const SearchBarContainer = styled.div`
   padding: 12px 16px;
   justify-content: flex-start;
   align-items: center;
-  gap: 6px;
+  gap: 12px;
+  margin-top: 16px;
   color: ${({ theme }) => theme.text_primary};
   
 `;
@@ -31,6 +32,7 @@ const SearchBar = ({ search, handleChange }) => {
                     width: "100%",
                     background: "inherit",
                     color: "inherit",
+                    fontSize: "16px",
                 }}
                 value={search}
                 onChange={(e) => handleChange(e)}
@@ -39,8 +41,5 @@ const SearchBar = ({ search, handleChange }) => {
 
     );
 };
-
-
-
 
 export default SearchBar;

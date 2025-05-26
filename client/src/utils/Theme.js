@@ -1,6 +1,6 @@
 
 
-export const darkTheme = {
+export const dark = {
     bg: "#15171E",
     bgLight: "#1C1E27",
     bgDark: "#15171E",
@@ -27,7 +27,7 @@ export const darkTheme = {
 
 
 
-export const lightTheme = {
+export const light = {
     bg: "#f9f9f9",
     bgLight: "#FFFFFF",
     primary: "#007AFF",

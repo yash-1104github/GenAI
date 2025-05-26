@@ -67,6 +67,7 @@ const Wrapper = styled.div`
   max-width: 1400px;
   padding: 32px 0px;
   display: flex;
+  margin-top:20px;
   justify-content: center;
   align-items: center;
 `;
@@ -100,14 +101,15 @@ const Home = () => {
   const getPost = async () => {
     setloading(true);
     //promise 
-    await GetPosts().then((res) => {
-        setPost(res?.data?.data);
-        setFilteredPost(res?.data?.data);
+    try {
+      const allPost =  await GetPosts();
+        setPost(allPost);
+        setFilteredPost(allPost);
         setloading(false);
-      }).catch((error) => {
+      } catch (error)  {
         setError(error?.response?.data?.message);
         setloading(false);
-      })
+      }
   }
 
   // console.log(setPost);
@@ -121,7 +123,13 @@ const Home = () => {
   useEffect(() => {
     if (!search) {
       setFilteredPost(post);
+      return;
     }
+
+    if (!Array.isArray(post)) {
+    setFilteredPost([]);
+    return;
+  }
 
     const filteredPost = post.filter((post) => {
       const searchTerm = search.toString().toLowerCase();
@@ -140,9 +148,9 @@ const Home = () => {
 
   return (
     <Container>
-      <HeadLine>
+      <HeadLine className="my-6 text-center">
         Explore popular posts in the Community!
-        <Span> Generated with AI </Span>
+        <Span className="mt-5 tracking-wider" > Turn Text to Image in Seconds  </Span>
       </HeadLine>
       <SearchBar
         search={search}
@@ -154,7 +162,7 @@ const Home = () => {
             <CircularProgress />
           ) : (
             <CardWrapper>
-              {filteredPost.length > 0 ? (
+              {Array.isArray(filteredPost) && filteredPost.length > 0 ? (
                 <>
                   {filteredPost.slice().reverse().map((item, index) => (
                     <ImageCard key={index} item={item} />

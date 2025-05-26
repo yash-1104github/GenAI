@@ -5,6 +5,7 @@ import { AddRounded, ExploreRounded } from "@mui/icons-material"
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { IconButton } from '@mui/material';
 import { DarkMode as DarkModeIcon, LightMode as LightModeIcon } from '@mui/icons-material';
+import { dark } from '../utils/Theme';
 
 
 const Container = styled.div`
@@ -17,6 +18,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 14px 50px;
+  position: sticky;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   @media only screen and (max-width: 600px) {
     padding: 10px 12px;
@@ -30,15 +32,16 @@ const Navbar = ({ toggleTheme,theme }) => {
     const location = useLocation();
     const path = location.pathname.split("/");
 
+    //console.log("Current theme:", theme);
+
 
     return (
         <>
             <Container>
-
-                GenAI
-
-                <div className="flex  gap-2">
-
+              <Link to="/">
+                 <span className="text-4xl tracking-wider">GenAI</span>
+              </Link>    
+                <div className="flex  gap-4">
                 {
                     path[1] === "post" ? (
                         <Button onClick={() => navigate("/")} text="Explore Posts" type="secondary"
@@ -65,7 +68,7 @@ const Navbar = ({ toggleTheme,theme }) => {
                 }
 
                     <IconButton onClick={toggleTheme} className="transition-all cursor-pointer">
-                        {theme === 'dark' ? <DarkModeIcon /> : <LightModeIcon />}
+                        {theme === dark  ? <DarkModeIcon /> : <LightModeIcon />}
                     </IconButton>
                 </div>
                    

@@ -17,7 +17,7 @@ export const getAllPosts = async (req, res, next) => {
     try {
         // Server receives and processes the GET request
         const posts = await Post.find({});// MongoDB query
-        return res.status(200).json({ success: true, data: posts });
+        return res.status(200).json({ success: true, data: posts, message: "Posts fetched successfully" });
         
     } catch (error) {
         return next(
@@ -33,6 +33,7 @@ export const getAllPosts = async (req, res, next) => {
 export const createPost = async (req, res, next) => {
     try {
         const { name, prompt, photo } = req.body;
+        console.log("Received data:", { name, prompt, photo });
         const photoUrl = await cloudinary.uploader.upload(photo);
          //data saves on mongodb
         const newPost = await Post.create({
@@ -41,7 +42,7 @@ export const createPost = async (req, res, next) => {
             photo: photoUrl.secure_url,
         });
 
-        return res.status(200).json({ success: true, data: newPost });
+        return res.status(200).json({ success: true, data: newPost , message: "Post created successfully" });
 
     } catch (error) {
         console.log(error);
@@ -50,3 +51,25 @@ export const createPost = async (req, res, next) => {
         );
     }
 };
+
+// Get post detail by ID
+export const getPostDetail = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const post = await Post.findById(id);
+        
+        if (!post) {
+            return next(createError(404, "Post not found"));
+        }
+
+        return res.status(200).json({ success: true, data: post, message: "Post fetched successfully" });
+
+    } catch (error) {
+        return next(
+            createError(
+                error.status,
+                error?.response?.data?.error.message || error.message
+            )
+        );
+    }
+}

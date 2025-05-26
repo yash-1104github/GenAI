@@ -2,11 +2,10 @@ import Button from "../button";
 import React, { useState } from "react";
 import styled from "styled-components";
 import TextInput from "../Input/TextInput";
-import { AutoAwesome, CreateRounded } from "@mui/icons-material";
+import { AutoAwesome, CreateRounded , Warning} from "@mui/icons-material";
 import { CreatePost, GenerateImageFromPrompt } from "../../api";
 import { useNavigate } from "react-router-dom";
 import { getRandomPrompt } from "../../utils";
-
 
 const Form = styled.div`
   flex: 1;
@@ -21,14 +20,22 @@ const Form = styled.div`
 const Top = styled.div`
   display: flex;
   flex-direction: column;
-   padding-bottom: 5px;
-
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid ${({ theme }) => theme.border + 50};
+  margin-top: 5px;
 `;
 
 const Title = styled.div`
   font-size: 32px;
   font-weight: 400;
   padding: 1px;
+  letters-spacing: 0.5px;
+  text-transform: capitalize;
+  margin-bottom: 5px;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
   color: ${({ theme }) => theme.text_primary};
 `;
 
@@ -44,7 +51,7 @@ const Body = styled.div`
   gap: 18px;
   font-size: 12px;
   font-weight: 400;
-  color: ${({ theme }) => theme.text_secondary};
+  color: ${({ theme }) => theme + 100};
   margin-bottom: 5px;
 `;
 
@@ -52,7 +59,7 @@ const Actions = styled.div`
   display: flex;
   flex: 1;
   gap: 8px;
-  
+
   /* button {
       flex: 1;
       min-width: 120px;
@@ -78,24 +85,26 @@ const Actions = styled.div`
     } */
 `;
 
-
-const GenerateImageForm = ({ createPostLoading, setcreatePostLoading, generateImageLoading, setGenerateImageLoading, post, setPost }) => {
-
+const GenerateImageForm = ({
+  createPostLoading,
+  setcreatePostLoading,
+  generateImageLoading,
+  setGenerateImageLoading,
+  post,
+  setPost,
+}) => {
   const navigate = useNavigate();
-
   const [error, setError] = useState("");
 
   const generateImage = async () => {
-
     setGenerateImageLoading(true);
     setError("");
-    //promise 
     await GenerateImageFromPrompt({ prompt: post.prompt })
-    
-      .then((res) => {
+      .then((photoData) => {
+        //console.log("Generated Image Data:", photoData);
         setPost({
           ...post,
-          photo: `data:image/jpeg;base64,${res?.data?.photo}`,
+          photo: photoData, // Assuming photoData is the URL or base64 string of the image
         });
         setGenerateImageLoading(false);
       })
@@ -103,7 +112,7 @@ const GenerateImageForm = ({ createPostLoading, setcreatePostLoading, generateIm
         setError(error?.response?.data?.message);
         setGenerateImageLoading(false);
       });
-  }
+  };
 
   const createPost = async () => {
     setcreatePostLoading(true);
@@ -117,71 +126,65 @@ const GenerateImageForm = ({ createPostLoading, setcreatePostLoading, generateIm
         setError(error?.response?.data?.message);
         setcreatePostLoading(false);
       });
-  }
-
-
+  };
 
   const handleSurpriseMe = () => {
     const randomPrompt = getRandomPrompt(post.prompt);
     setPost({ ...post, prompt: randomPrompt });
-  }
+  };
 
   {
-    (
-      <Button
-        text="Surpre Me"
-        leftIcon={<AutoAwesome />}
-        onClick={handleSurpriseMe}
-      />
-    )
+    <Button
+      text="Surpre Me"
+      leftIcon={<AutoAwesome />}
+      onClick={handleSurpriseMe}
+    />;
   }
-
 
   return (
     <>
       <Form>
         <Top>
           <Title>Generate Image with prompt</Title>
-          {/* <Desc>
-            Write your prompt according to the image you want to generate!
-          </Desc> */}
         </Top>
 
         <Body>
-            <TextInput
-              label="Author"
-              placeholder="Enter your name"
-              name="name"
-              value={post.name}
-              handelChange={(e) => setPost({ ...post, name: e.target.value })}
-            />
+          <TextInput
+            label="Author"
+            placeholder="Enter Full Name"
+            name="name"
+            value={post.name}
+            handelChange={(e) => setPost({ ...post, name: e.target.value })}
+          />
           <TextInput
             label="Image Prompt"
             placeholder="Write a detailed prompt about the image"
             name="prompt"
             textArea
-            rows="7"
+            rows="10"
             value={post.prompt}
             handelChange={(e) => setPost({ ...post, prompt: e.target.value })}
           />
           <div className="flex w-full ml-5 justify-center">
             {
-              (
-                <Button
-                  text="Surpre Me"
-                  leftIcon={<AutoAwesome />}
-                  onClick={handleSurpriseMe}
-                />
-              )
+              <Button
+                text="Surpre Me"
+                leftIcon={<Warning />}
+                onClick={handleSurpriseMe}
+              />
             }
           </div>
-          {error && <div style={{ color: "red" }}>{error}</div>}
-          * You can post the AI Generated Image to showcase in the community!
+          {error && <div style={{ color: "red", padding: "5px" }}>{error}</div>}
+          <div className="flex w-full justify-center my-4 tracking-wide">
+             You can post the AI Generated Image to showcase in the community!
+          </div>
+          
         </Body>
 
         <Actions>
           <Button
             text="Generate Image"
+            leftIcon={<AutoAwesome />}
             flex
             isLoading={generateImageLoading}
             isDisabled={post.prompt === ""}
@@ -200,9 +203,7 @@ const GenerateImageForm = ({ createPostLoading, setcreatePostLoading, generateIm
           />
         </Actions>
       </Form>
-
     </>
-
   );
 };
 
