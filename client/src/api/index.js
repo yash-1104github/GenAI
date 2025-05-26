@@ -1,8 +1,6 @@
-
 import axios from "axios";
 const apiKey = import.meta.env.VITE_API_KEY;
 const baseURL = import.meta.env.VITE_BACKEND_URL;
-
 
 export const GetPosts = async () => {
   try {
@@ -29,7 +27,6 @@ export const CreatePost = async (post) => {
   }
 };
 
-
 export const GenerateImageFromPrompt = async (data) => {
   try {
    //  console.log("Sending Authorization header:", apiKey);
@@ -44,8 +41,8 @@ export const GenerateImageFromPrompt = async (data) => {
       }
     );
     //console.log(data);
-    console.log("Response from GenerateImageFromPrompt:", response.data.photo);
-
+    // console.log("Response from GenerateImageFromPrompt:", response.data.photo);
+    
     return response.data.photo; // Ensure we return the image URL or data
   } catch (error) {
     console.error(
