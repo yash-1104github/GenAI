@@ -18,6 +18,7 @@
 - FRONTEND TECH -  HTML, TAILWINDCSS, JAVASCRIPT, REACT,  MATERIAL-UI
 - BACKEND TECH -  NODE.JS, EXPRESS.JS , RESTful-API
 - DATABASE - MONGODB , CLOUDINARY
+- DEPLOY - RENDER, VERCEL
 
 **How It Works**
 - User Input: Users enter a text prompt describing the desired image (e.g., “a sunset over the ocean with mountains in the background”).
