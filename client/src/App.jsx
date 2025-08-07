@@ -29,12 +29,22 @@ const Wrapper = styled.div`
   flex: 3;
 `;
 
+  const getInitialTheme = () => {
+  const savedTheme = localStorage.getItem("theme");
+  return savedTheme === "light" ? light : dark;
+};
+
+
 function App() {
-  const [theme, setTheme] = useState(dark);
+
+  const [theme, setTheme] = useState(getInitialTheme);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === dark ? light : dark));
+    const newTheme = theme === dark ? light : dark;
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme === light ? "light" : "dark");
   };
+
 
   return (
     <ThemeProvider theme={theme}>
