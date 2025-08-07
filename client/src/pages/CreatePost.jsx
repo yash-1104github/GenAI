@@ -25,7 +25,6 @@ const Wrapper = styled.div`
   flex: 1;
   max-width: 1200px;
   height: fit-content;
- 
   @media (max-width: 768px) {
     flex-direction: column;
     margin-bottom: 40px;
@@ -34,7 +33,7 @@ const Wrapper = styled.div`
 
 
 const CreatePost = () => {
-  
+
   const [generateImageLoading, setGenerateImageLoading] = useState(false);
   const [createPostLoading, setcreatePostLoading] = useState(false);
 
