@@ -52,7 +52,7 @@ const HeadLine = styled.div`
 
 const Span = styled.div`
   font-size: 34px;
-  font-weight: 800;
+  font-weight: 400;
   color: ${({ theme }) => theme.secondary};
 
    @media (max-width: 600px) {
@@ -150,7 +150,7 @@ const Home = () => {
     <Container>
       <HeadLine className="my-6 text-center">
         Explore popular posts in the Community!
-        <Span className="mt-5 tracking-wider" > Turn Text to Image in Seconds  </Span>
+        <Span className="mt-5 tracking-wide" > Turn Text to Image in Seconds  </Span>
       </HeadLine>
       <SearchBar
         search={search}

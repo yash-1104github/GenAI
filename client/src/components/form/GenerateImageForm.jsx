@@ -9,7 +9,7 @@ import { getRandomPrompt } from "../../utils";
 
 const Form = styled.div`
   flex: 1;
-  padding: 16px 20px;
+  padding: 20px 12px;
   display: flex;
   flex-direction: column;
   gap: 8%;
@@ -19,25 +19,11 @@ const Form = styled.div`
 
 const Top = styled.div`
   display: flex;
-  flex-direction: column;
   padding-bottom: 5px;
   margin-bottom: 15px;
-  border-bottom: 1px solid ${({ theme }) => theme.border + 50};
   margin-top: 5px;
 `;
 
-const Title = styled.div`
-  font-size: 32px;
-  font-weight: 400;
-  padding: 1px;
-  letters-spacing: 0.5px;
-  text-transform: capitalize;
-  margin-bottom: 5px;
-  text-align: center;
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  color: ${({ theme }) => theme.text_primary};
-`;
 
 const Desc = styled.div`
   font-size: 17px;
@@ -136,6 +122,7 @@ const GenerateImageForm = ({
   {
     <Button
       text="Surpre Me"
+      className="text-xl"
       leftIcon={<AutoAwesome />}
       onClick={handleSurpriseMe}
     />;
@@ -143,9 +130,10 @@ const GenerateImageForm = ({
 
   return (
     <>
+    <div className="py-1">
       <Form>
         <Top>
-          <Title>Generate Image with prompt</Title>
+          <div className="text-2xl md:text-3xl font-medium tracking-[0.5px] pl-2 md:pl-0 capitalize mb-2 mt-20 md:mt-0 text-center font-[Poppins] text-[var(--tw-text-primary)]"> Generate Image with prompt</div>
         </Top>
 
         <Body>
@@ -203,6 +191,7 @@ const GenerateImageForm = ({
           />
         </Actions>
       </Form>
+      </div>
     </>
   );
 };

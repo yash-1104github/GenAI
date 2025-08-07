@@ -28,11 +28,13 @@ const Wrapper = styled.div`
  
   @media (max-width: 768px) {
     flex-direction: column;
+    margin-bottom: 40px;
   }
 `;
 
 
 const CreatePost = () => {
+  
   const [generateImageLoading, setGenerateImageLoading] = useState(false);
   const [createPostLoading, setcreatePostLoading] = useState(false);
 

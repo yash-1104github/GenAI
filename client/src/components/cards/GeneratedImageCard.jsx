@@ -16,6 +16,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 16px;
+  font-size: 16px;
+  font-weight: 500;
 `;
 
 
@@ -41,7 +43,12 @@ const GeneratedImageCard = ({ src, loading }) => {
                 ) : src ? (
                     <Image src={src} />
                 ) : (
-                    <>Write a prompt to generate image</>
+                    <>
+                        <div className="text-center text-gray-500">
+                            No image generated  <br />
+                            Please generate an image using the form.
+                        </div>
+                    </>
                 )}
             </Container>
         </>

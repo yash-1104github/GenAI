@@ -17,7 +17,7 @@ const Button = styled.div`
   padding: 10px 24px;
   @media (max-width: 600px) {
     padding: 8px 12px;
-    font-size: 8px;
+    font-size: 12px;
     font-weight: 400;
   }
 

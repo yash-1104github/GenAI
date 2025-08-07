@@ -6,6 +6,7 @@ const baseURL = import.meta.env.VITE_BACKEND_URL;
 import Button from "../components/button";
 import FileSaver from "file-saver";
 import { Download } from "@mui/icons-material";
+import { CircularProgress } from "@mui/material";
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -15,7 +16,7 @@ const PostDetail = () => {
     const fetchPost = async () => {
       // console.log("Fetching post with ID:", id);
       const res = await axios.get(`${baseURL}/post/${id}`);
-      setPost(res.data.data); 
+      setPost(res.data.data);
     };
     fetchPost();
   }, [id]);
@@ -23,7 +24,7 @@ const PostDetail = () => {
   if (!post) {
     return (
       <div className="w-full h-[100vh] flex items-center justify-center">
-        Loading post...
+          <CircularProgress />
       </div>
     );
   }
@@ -37,8 +38,13 @@ const PostDetail = () => {
             src={post.photo}
             alt="Post"
           />
-          <h2 className="text-lg sm:text-xl font-medium my-2 font-mono text-center justify-center">Prompt: {post.prompt}</h2>
-          <p className=" text-lg sm:text-xl font-medium mb-2 font-mono"> Created by: {post.name}</p>
+          <h2 className="text-lg sm:text-xl font-medium my-2 font-mono text-center justify-center">
+            Prompt: {post.prompt}
+          </h2>
+          <p className=" text-lg sm:text-xl font-medium mb-2 font-mono">
+            {" "}
+            Created by: {post.name}
+          </p>
           <Button
             onClick={() => {
               FileSaver.saveAs(post.photo, "downloaded-image.jpg");

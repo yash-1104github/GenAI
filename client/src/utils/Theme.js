@@ -1,5 +1,4 @@
 
-
 export const dark = {
     bg: "#15171E",
     bgLight: "#1C1E27",
@@ -23,9 +22,6 @@ export const dark = {
     red: "#ef5350",
     orange: "#F7AD63",
 };
-
-
-
 
 export const light = {
     bg: "#f9f9f9",

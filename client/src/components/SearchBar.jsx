@@ -13,7 +13,6 @@ const SearchBarContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 12px;
-  margin-top: 16px;
   color: ${({ theme }) => theme.text_primary};
   
 `;
