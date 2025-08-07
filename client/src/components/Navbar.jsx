@@ -67,9 +67,14 @@ const Navbar = ({ toggleTheme,theme }) => {
                     )
                 }
 
-                    <IconButton onClick={toggleTheme} className="transition-all cursor-pointer">
-                        {theme === dark  ? <DarkModeIcon /> : <LightModeIcon />}
+                    <IconButton 
+                    onClick={toggleTheme} 
+                    className="transition-all cursor-pointer"
+                    aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                    >
+                        {theme === dark  ? <DarkModeIcon /> : <LightModeIcon/>}
                     </IconButton>
+
                 </div>
                    
             </Container>
