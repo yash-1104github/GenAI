@@ -54,7 +54,7 @@ function App() {
             <Suspense
               fallback={
                 <div className="flex justify-center items-center p-10">
-                  <CircularProgress />
+                    loading...
                 </div>
               }
             >
