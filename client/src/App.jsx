@@ -34,7 +34,6 @@ const Wrapper = styled.div`
   return savedTheme === "light" ? light : dark;
 };
 
-
 function App() {
 
   const [theme, setTheme] = useState(getInitialTheme);
